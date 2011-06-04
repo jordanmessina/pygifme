@@ -3,6 +3,6 @@
 from PIL import Image
 import images2gif
 
-images = [Image.open("hunter1.gif"), Image.open("hunter2.gif")]
+images = [Image.open("hunter1.gif"), Image.open("hunter2.gif"), Image.open("hunter2.gif"), Image.open("hunter2.gif"),]
 
 images2gif.writeGif("out.gif", images)
