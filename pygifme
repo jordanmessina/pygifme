@@ -16,6 +16,7 @@ except ImportError:
 parser = argparse.ArgumentParser(description='Turn images into an animated gif.')
 parser.add_argument('files', type=argparse.FileType('r'), nargs='+', metavar='F', help='image file to use in gif')
 parser.add_argument('outfile', type=argparse.FileType('w'), nargs=1, metavar='OF', help='file to write out to')
+parser.add_argument('-d', '--duration', type=float, nargs='+', metavar='D', help='The duration for all frames, or (if multiple args) for each frame.', default=[0.1])
 
 try:
     args = parser.parse_args()
@@ -27,9 +28,13 @@ except IOError, e:
 images = [Image.open(imagearg.name) for imagearg in args.files]
 outfile = args.outfile[0].name
 args.outfile[0].close()
+if len(args.duration) == 1:
+    duration = args.duration[0]
+else:
+    duration = args.duration
 
 try:
-    images2gif.writeGif(outfile, images)
+    images2gif.writeGif(outfile, images, duration)
 except IOError, e:
     print 'pygifme had the following error:'
     print e
